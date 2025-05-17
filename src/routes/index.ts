@@ -25,6 +25,8 @@ userRouter.get(Paths.Users.Get, UserRoutes.getAll);
 userRouter.post(Paths.Users.Add, UserRoutes.add);
 userRouter.put(Paths.Users.Update, UserRoutes.update);
 userRouter.delete(Paths.Users.Delete, UserRoutes.delete);
+userRouter.get(Paths.Users.Pagination, UserRoutes.getUsersWithPagination);
+userRouter.get(Paths.Users.Search, UserRoutes.searchUsers);
 
 const authRouter = Router();
 /******************************************************************************

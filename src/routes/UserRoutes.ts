@@ -7,6 +7,7 @@ import UserService from "@src/services/UserService";
 import { IReq, IRes } from "./common/types";
 import { parseReq } from "./common/util";
 import { userSchema } from "./common/util/validation";
+import { ApiResponse } from "@src/common/util/util.api-response";
 
 /******************************************************************************
                                 Constants
@@ -57,6 +58,40 @@ async function delete_(req: IReq, res: IRes) {
   res.status(HttpStatusCodes.OK).end();
 }
 
+async function getUsersWithPagination(req: IReq, res: IRes) {
+  const { page, limit } = req.query;
+  const options = {
+    page: Number(page) || 1,
+    limit: Number(limit) || 10,
+  };
+  const users = await UserService.getUsersWithPagination(options);
+  const response: ApiResponse = new ApiResponse(
+    HttpStatusCodes.OK,
+    "Users retrieved successfully",
+    users
+  );
+  res.status(HttpStatusCodes.OK).json(response);
+}
+
+async function searchUsers(req: IReq, res: IRes) {
+  const { query, page, limit } = req.query as {
+    query?: string;
+    page?: string;
+    limit?: string;
+  };
+  const options = {
+    page: Number(page) || 1,
+    limit: Number(limit) || 10,
+  };
+  const users = await UserService.searchUsers(query || "", options);
+  const response: ApiResponse = new ApiResponse(
+    HttpStatusCodes.OK,
+    "Users retrieved successfully",
+    users
+  );
+  res.status(HttpStatusCodes.OK).json(response);
+}
+
 /******************************************************************************
                                 Export default
 ******************************************************************************/
@@ -66,4 +101,6 @@ export default {
   add,
   update,
   delete: delete_,
+  getUsersWithPagination,
+  searchUsers,
 } as const;

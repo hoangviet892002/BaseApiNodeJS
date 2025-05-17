@@ -11,6 +11,8 @@ export default {
     Add: "/add",
     Update: "/update",
     Delete: "/delete/:id",
+    Pagination: "/pagination",
+    Search: "/search",
   },
   Tests: {
     Base: "/tests",

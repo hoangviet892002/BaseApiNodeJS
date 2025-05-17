@@ -11,10 +11,12 @@ export class ApiResponse {
   public status: HttpStatusCodes;
   public message: string;
   public data: any;
+  public isSuccess: boolean;
 
   public constructor(status: HttpStatusCodes, message: string, data?: any) {
     this.status = status;
     this.message = message;
     this.data = data ?? null;
+    this.isSuccess = true;
   }
 }
